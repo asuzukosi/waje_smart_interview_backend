@@ -34,7 +34,7 @@ SECRET_KEY = config("SECRET_KEY", default="django-insecure-u64601=@sy(a*ep^w6+wv
 HEROKU = config('HEROKU', default=False, cast=bool)
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition

@@ -31,7 +31,7 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 SECRET_KEY = config("SECRET_KEY", default="django-insecure-u64601=@sy(a*ep^w6+wvs0gxjlovfks0222x*+k(m8-fnbpr!")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-HEROKU = config('HEROKU', default=True, cast=bool)
+HEROKU = config('HEROKU', default=False, cast=bool)
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -94,14 +94,15 @@ WSGI_APPLICATION = "waje_smart_interview.wsgi.application"
 default_db = None
 
 if HEROKU:
+    default_db = dj_database_url.config(
+        default=config('DATABASE_URL')
+    )
+else:
     default_db = {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
     }
-else:
-    default_db = dj_database_url.config(
-        default=config('DATABASE_URL')
-    )
+    
 DATABASES = {
     "default": default_db
 }

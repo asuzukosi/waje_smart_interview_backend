@@ -31,7 +31,8 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 SECRET_KEY = config("SECRET_KEY", default="django-insecure-u64601=@sy(a*ep^w6+wvs0gxjlovfks0222x*+k(m8-fnbpr!")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=True, cast=bool)
+HEROKU = config('HEROKU', default=True, cast=bool)
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -59,7 +60,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -93,7 +93,7 @@ WSGI_APPLICATION = "waje_smart_interview.wsgi.application"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 default_db = None
 
-if DEBUG:
+if HEROKU:
     default_db = {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
@@ -148,7 +148,6 @@ STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static'),
 )
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 

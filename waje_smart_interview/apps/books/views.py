@@ -1,6 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
 from books.models import Author, Book
-from books.serializers import AuthorSerializer, BookSerializer
+from books.serializers import AuthorSerializer, BookOutputSerializer, BookSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 
@@ -22,3 +22,9 @@ class BookViewSet(ModelViewSet):
     filterset_fields = ["author", "name"]
     search_fields = ["author", "name", "isbn"]
     ordering_fields = ["author", "name", "isbn"]
+    
+    def get_serializer_class(self):
+        
+        if self.action in ["list", "retrieve"]:
+            return BookOutputSerializer
+        return super().get_serializer_class()

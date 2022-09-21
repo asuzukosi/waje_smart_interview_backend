@@ -28,16 +28,16 @@ class AuthorAPITest(TestCase):
         Author.objects.create(first_name='Lil', last_name='Wayne')
 
     def test_get_authors(self):
-        response = self.client.get("/authors/")
+        response = self.client.get("/api/authors/")
         self.assertEqual(response.status_code, 200)
         
         
     def test_create_author(self):
         body = {
-            "irst_name" : "Micheal", 
+            "first_name" : "Micheal", 
             "last_name": "Jackson"
         }
-        response = self.client.post("/authors/", data=json.dumps(body))
+        response = self.client.post("/api/authors/", data=body)
         self.assertEqual(response.status_code, 201)
 
     
@@ -48,7 +48,7 @@ class AuthorAPITest(TestCase):
              "last_name": "Beckham"
          }
          
-         response = self.client.put(f"/authors/{author.id}/", data=json.dumps(body))
+         response = self.client.put(f"/api/authors/{author.id}/", data=body)
          self.assertEqual(response.status_code, 200)
 
 class BookModelTest(TestCase):
@@ -56,12 +56,20 @@ class BookModelTest(TestCase):
     """ Test module for Book model """
 
     def setUp(self):
-        Author.objects.create(first_name='Casper', last_name='Novest')
-        Author.objects.create(first_name='Lil', last_name='Wayne')
+        author1 = Author.objects.create(first_name='Casper', last_name='Novest')
+        author2 = Author.objects.create(first_name='Lil', last_name='Wayne')
+        
+        Book.objects.create(name="Flying in the winds", isbn="1223", author=author1)
+        Book.objects.create(name="Into the darknes", isbn="1234", author=author2)
+
 
     def test_author_name(self):
-        casper_novest:Author = Author.objects.get(first_name='Casper')
-        lil_wayne:Author = Author.objects.get(first_name='Lil')
+        book1 = Book.objects.get(isbn="1223")
+        book2 = Book.objects.get(isbn="1234")
         
-        self.assertEqual(casper_novest.last_name, "Novest")
-        self.assertEqual(lil_wayne.last_name, "Wayne")
+        self.assertEqual(book1.author.first_name, "Casper")
+        self.assertEqual(book1.name, "Flying in the winds")
+        
+        
+        self.assertEqual(book2.author.first_name, "Lil")
+        self.assertEqual(book2.name, "Into the darknes")

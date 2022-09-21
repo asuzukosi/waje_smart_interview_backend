@@ -141,7 +141,7 @@ REST_FRAMEWORK = {
 }
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'YWAJE SMART INTERVIEW PROJECT API',
+    'TITLE': 'WAJE SMART INTERVIEW PROJECT API',
     'DESCRIPTION': 'This is the API documentation of the waje smart interview project',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,

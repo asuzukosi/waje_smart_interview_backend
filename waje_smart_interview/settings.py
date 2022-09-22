@@ -47,6 +47,7 @@ THIRD_PARTY_APPS = [
     "django_filters",
     'drf_spectacular',
     'drf_spectacular_sidecar',
+    'corsheaders',
 ]
 
 INSTALLED_APPS = [
@@ -69,6 +70,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "waje_smart_interview.urls"
+
+
+CSRF_TRUSTED_ORIGINS = ['*']
 
 TEMPLATES = [
     {

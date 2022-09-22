@@ -60,6 +60,7 @@ INSTALLED_APPS = [
 ] + INTERNAL_APPS + THIRD_PARTY_APPS
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -72,7 +73,8 @@ MIDDLEWARE = [
 ROOT_URLCONF = "waje_smart_interview.urls"
 
 
-CSRF_TRUSTED_ORIGINS = ['*']
+CSRF_TRUSTED_ORIGINS = ['https://waje-smart-backend.herokuapp.com/']
+CORS_ALLOW_ALL_ORIGINS = True
 
 TEMPLATES = [
     {
